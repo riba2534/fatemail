@@ -1,16 +1,27 @@
 import { createDb } from "@/lib/db";
 import { roles, userRoles } from "@/lib/schema";
 import { eq } from "drizzle-orm";
-import { ROLES } from "@/lib/permissions";
-import { assignRoleToUser } from "@/lib/auth";
+import { ROLES, PERMISSIONS } from "@/lib/permissions";
+import { assignRoleToUser, auth, checkPermission } from "@/lib/auth";
 
 export const runtime = "edge";
 
 export async function POST(request: Request) {
   try {
-    const { userId, roleName } = await request.json() as { 
-      userId: string, 
-      roleName: typeof ROLES.DUKE | typeof ROLES.KNIGHT | typeof ROLES.CIVILIAN 
+    const canManage = await checkPermission(PERMISSIONS.MANAGE_USERS);
+    if (!canManage) {
+      return Response.json({ error: "权限不足" }, { status: 403 });
+    }
+
+    const session = await auth();
+    const callerId = session?.user?.id;
+    if (!callerId) {
+      return Response.json({ error: "未授权" }, { status: 401 });
+    }
+
+    const { userId, roleName } = await request.json() as {
+      userId: string,
+      roleName: typeof ROLES.DUKE | typeof ROLES.KNIGHT | typeof ROLES.CIVILIAN
     };
     if (!userId || !roleName) {
       return Response.json(
@@ -22,6 +33,13 @@ export async function POST(request: Request) {
     if (![ROLES.DUKE, ROLES.KNIGHT, ROLES.CIVILIAN].includes(roleName)) {
       return Response.json(
         { error: "角色不合法" },
+        { status: 400 }
+      );
+    }
+
+    if (userId === callerId) {
+      return Response.json(
+        { error: "不能修改自己的角色" },
         { status: 400 }
       );
     }
@@ -64,7 +82,7 @@ export async function POST(request: Request) {
 
     await assignRoleToUser(db, userId, targetRole.id);
 
-    return Response.json({ 
+    return Response.json({
       success: true,
     });
   } catch (error) {

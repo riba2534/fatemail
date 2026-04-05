@@ -8,7 +8,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { useToast } from "@/components/ui/use-toast"
-import { Loader2, Send, ChevronDown, ChevronUp } from "lucide-react"
+import { Loader2, Send, ChevronDown, ChevronUp, MessageSquare } from "lucide-react"
+import { detectWebhookType } from "@/lib/webhook-adapter"
 import {
   Tooltip,
   TooltipContent,
@@ -170,6 +171,17 @@ export function WebhookConfig() {
             <p className="text-xs text-muted-foreground">
               {t("description2")}
             </p>
+            {url && detectWebhookType(url) === "feishu" && (
+              <div className="flex items-start gap-2 text-xs text-primary bg-primary/10 rounded px-2 py-1.5">
+                <MessageSquare className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
+                <div>
+                  <div className="font-medium">{t("feishuDetected")}</div>
+                  <div className="text-muted-foreground mt-0.5">
+                    {t("feishuHint")}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="space-y-2">

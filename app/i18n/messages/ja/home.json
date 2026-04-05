@@ -1,6 +1,6 @@
 {
-  "title": "MoeMail",
-  "subtitle": "かわいい使い捨てメールサービス",
+  "title": "FateMail",
+  "subtitle": "運命が届ける使い捨てメール",
   "features": {
     "privacy": {
       "title": "プライバシー保護",
@@ -11,8 +11,8 @@
       "description": "メールボックスを他の人と共有できます"
     },
     "expiry": {
-      "title": "自動期限切れ",
-      "description": "有効期限が切れると自動的に無効になります"
+      "title": "儚さの美学",
+      "description": "運命の糸はいつか切れる"
     },
     "openapi": {
       "title": "オープンAPI",
@@ -21,7 +21,6 @@
   },
   "actions": {
     "enterMailbox": "メールボックスに入る",
-    "getStarted": "今すぐ始める"
+    "getStarted": "運命と出会う"
   }
 }
-

@@ -1,10 +1,10 @@
 {
-  "name": "@moemail/cli",
+  "name": "@fatemail/cli",
   "version": "0.1.2",
-  "description": "Agent-first CLI for MoeMail temporary email service",
+  "description": "Agent-first CLI for FateMail temporary email service",
   "type": "module",
   "bin": {
-    "moemail": "dist/index.js"
+    "fatemail": "dist/index.js"
   },
   "scripts": {
     "build": "bun build ./src/index.ts --outdir ./dist --target=node",

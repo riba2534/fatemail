@@ -1,6 +1,5 @@
 {
-  "title": "MoeMail - Cute Temporary Email Service · Open API",
-  "description": "Secure, fast, and disposable temporary email addresses. Protect your privacy and stay away from spam. Email sharing, instant delivery with automatic expiration. Full OpenAPI interface for developers and automation testing.",
-  "keywords": "temporary email, disposable email, anonymous email, email sharing, privacy protection, spam filter, instant delivery, auto expiry, secure email, verification email, temporary account, no phone required, developer tools, automation testing, email API, OpenAPI, API interface, RESTful API, API Key, developer friendly, MoeMail"
+  "title": "FateMail - Emails Delivered by Fate · Open API",
+  "description": "A temporary email service where every message is a twist of fate. Protect your privacy, embrace serendipity. Email sharing, instant delivery with automatic expiration. Full OpenAPI interface for developers and automation testing.",
+  "keywords": "temporary email, fate, disposable email, anonymous email, email sharing, privacy protection, spam filter, instant delivery, auto expiry, secure email, verification email, temporary account, no phone required, developer tools, automation testing, email API, OpenAPI, API interface, RESTful API, API Key, developer friendly, FateMail"
 }
-

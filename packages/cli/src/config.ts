@@ -7,11 +7,11 @@ export interface CliConfig {
   apiKey: string;
 }
 
-const CONFIG_DIR = join(homedir(), ".moemail");
+const CONFIG_DIR = join(homedir(), ".fatemail");
 const CONFIG_FILE = join(CONFIG_DIR, "config.json");
 
 export function loadConfig(): CliConfig {
-  const config: CliConfig = { apiUrl: "https://moemail.app", apiKey: "" };
+  const config: CliConfig = { apiUrl: "https://fate.email", apiKey: "" };
 
   // File config
   if (existsSync(CONFIG_FILE)) {
@@ -23,8 +23,8 @@ export function loadConfig(): CliConfig {
   }
 
   // Env overrides (higher priority)
-  if (process.env.MOEMAIL_API_URL) config.apiUrl = process.env.MOEMAIL_API_URL;
-  if (process.env.MOEMAIL_API_KEY) config.apiKey = process.env.MOEMAIL_API_KEY;
+  if (process.env.FATEMAIL_API_URL) config.apiUrl = process.env.FATEMAIL_API_URL;
+  if (process.env.FATEMAIL_API_KEY) config.apiKey = process.env.FATEMAIL_API_KEY;
 
   return config;
 }

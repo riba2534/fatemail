@@ -1,53 +1,53 @@
 ---
-name: moemail
-description: Use when an AI agent needs a temporary/disposable email address — for receiving verification emails, testing email integrations, or any task requiring a temporary inbox via the moemail CLI
+name: fatemail
+description: Use when an AI agent needs a temporary/disposable email address — for receiving verification emails, testing email integrations, or any task requiring a temporary inbox via the fatemail CLI
 ---
 
-# MoeMail — Temporary Email for AI Agents
+# FateMail — Temporary Email for AI Agents
 
 ## Overview
-MoeMail provides disposable email addresses with an agent-first CLI (`moemail`). Create inboxes, wait for messages, read content, and send emails programmatically.
+FateMail provides disposable email addresses with an agent-first CLI (`fatemail`). Create inboxes, wait for messages, read content, and send emails programmatically.
 
 ## Install
 
-Install the MoeMail CLI globally when it is not already available:
+Install the FateMail CLI globally when it is not already available:
 
 ```bash
-npm i -g @moemail/cli
+npm i -g @fatemail/cli
 ```
 
 Then confirm the binary is available:
 
 ```bash
-moemail --help
+fatemail --help
 ```
 
 ## Setup
 
 Configure once per environment:
 ```bash
-moemail config set api-url https://moemail.app
-moemail config set api-key YOUR_API_KEY
+fatemail config set api-url https://fate.email
+fatemail config set api-key YOUR_API_KEY
 ```
 
-Or via environment variables: `MOEMAIL_API_URL`, `MOEMAIL_API_KEY`.
+Or via environment variables: `FATEMAIL_API_URL`, `FATEMAIL_API_KEY`.
 
 ## Core Workflow: Receive an Email
 
 ```bash
 # 1. Create inbox — capture ONCE, parse both fields
-RESULT=$(moemail --json create --expiry 1h)
+RESULT=$(fatemail --json create --expiry 1h)
 ID=$(echo "$RESULT" | jq -r '.id')
 EMAIL=$(echo "$RESULT" | jq -r '.address')
 
 # 2. Use $EMAIL wherever needed (registration, forms, etc.)
 
 # 3. Wait for message (exits when message arrives or times out)
-MSG=$(moemail --json wait --email-id "$ID" --timeout 120)
+MSG=$(fatemail --json wait --email-id "$ID" --timeout 120)
 MSG_ID=$(echo "$MSG" | jq -r '.messageId')
 
 # 4. Read full message content
-moemail --json read --email-id "$ID" --message-id "$MSG_ID"
+fatemail --json read --email-id "$ID" --message-id "$MSG_ID"
 ```
 
 ## Command Reference
@@ -64,8 +64,8 @@ moemail --json read --email-id "$ID" --message-id "$MSG_ID"
 
 **Always put `--json` before the subcommand:**
 ```bash
-moemail --json create --expiry 24h   # ✅ correct
-moemail create --expiry 24h --json   # ❌ wrong position
+fatemail --json create --expiry 24h   # ✅ correct
+fatemail create --expiry 24h --json   # ❌ wrong position
 ```
 
 ## JSON Output Shapes

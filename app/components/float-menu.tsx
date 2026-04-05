@@ -29,7 +29,7 @@ export function FloatMenu() {
               variant="outline"
               size="icon"
               className="bg-white dark:bg-background rounded-full shadow-lg group relative border-primary/20"
-              onClick={() => window.open("https://github.com/beilunyang/moemail", "_blank")}
+              onClick={() => window.open("https://github.com/riba2534/fatemail", "_blank")}
             >
               <Github 
                 className="w-4 h-4 transition-all duration-300 text-primary group-hover:scale-110"

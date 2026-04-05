@@ -1,6 +1,6 @@
 {
-  "title": "MoeMail",
-  "subtitle": "Cute Temporary Email Service",
+  "title": "FateMail",
+  "subtitle": "Emails Delivered by Fate",
   "features": {
     "privacy": {
       "title": "Privacy Protection",
@@ -11,8 +11,8 @@
       "description": "Share your mailbox with others"
     },
     "expiry": {
-      "title": "Auto Expiry",
-      "description": "Automatically expires when due"
+      "title": "Ephemeral by Design",
+      "description": "The thread of fate will be cut"
     },
     "openapi": {
       "title": "Open API",
@@ -21,7 +21,6 @@
   },
   "actions": {
     "enterMailbox": "Enter Mailbox",
-    "getStarted": "Get Started"
+    "getStarted": "Meet Your Fate"
   }
 }
-

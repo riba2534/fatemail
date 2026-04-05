@@ -90,6 +90,8 @@
     "saveFailed": "Failed to save configuration",
     "testSuccess": "Webhook test successful",
     "testFailed": "Webhook test failed",
+    "feishuDetected": "🐦 Feishu (Lark) bot detected",
+    "feishuHint": "We'll automatically convert to the Feishu interactive card format. Please disable signature verification in your bot settings.",
     "docs": {
       "intro": "When a new email is received, we will send a POST request to the configured URL with the following headers:",
       "exampleBody": "Request body example:",
@@ -135,5 +137,66 @@
     "loading": "Loading...",
     "updateSuccess": "User role updated successfully",
     "updateFailed": "Failed to update user role"
+  },
+  "admin": {
+    "title": "User Management",
+    "description": "Manage all registered users (Emperor only)",
+    "loading": "Loading...",
+    "empty": "No users yet",
+    "fetchFailed": "Failed to fetch user list",
+    "total": "{count} total",
+    "search": {
+      "placeholder": "Search by username or email"
+    },
+    "filter": {
+      "allRoles": "All Roles"
+    },
+    "column": {
+      "username": "Username",
+      "email": "Email",
+      "role": "Role",
+      "createdAt": "Registered",
+      "providers": "Providers",
+      "actions": "Actions"
+    },
+    "provider": {
+      "credentials": "Password",
+      "google": "Google",
+      "github": "GitHub"
+    },
+    "action": {
+      "changeRole": "Change Role",
+      "resetPassword": "Reset Password",
+      "refresh": "Refresh"
+    },
+    "pagination": {
+      "page": "Page {page} / {total}"
+    },
+    "roleDialog": {
+      "title": "Change User Role",
+      "description": "Change role of {user} to:",
+      "cannotSelf": "Cannot change your own role",
+      "cannotEmperor": "Cannot change emperor's role",
+      "confirm": "Confirm",
+      "cancel": "Cancel"
+    },
+    "roleUpdateSuccess": "Role updated successfully",
+    "roleUpdateFailed": "Failed to update role",
+    "pwDialog": {
+      "title": "Reset User Password",
+      "description": "Reset password for {user}? The old password will be invalidated immediately.",
+      "confirm": "Proceed",
+      "cancel": "Cancel",
+      "generate": "Generate a temporary password",
+      "manual": "Enter a new password",
+      "placeholder": "At least 8 characters",
+      "submit": "Reset",
+      "tempPassword": "Temporary password (copy now and share via a secure channel)",
+      "copyHint": "The password will not be shown again after closing",
+      "close": "Close"
+    },
+    "pwResetSuccess": "Password reset successfully",
+    "pwResetFailed": "Failed to reset password",
+    "pwResetOAuthOnly": "Cannot reset password for OAuth users"
   }
 }

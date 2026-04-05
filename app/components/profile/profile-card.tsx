@@ -14,6 +14,7 @@ import { useRolePermission } from "@/hooks/use-role-permission"
 import { PERMISSIONS } from "@/lib/permissions"
 import { WebsiteConfigPanel } from "./website-config-panel"
 import { ApiKeyPanel } from "./api-key-panel"
+import { AdminUserListPanel } from "./admin-user-list-panel"
 
 interface ProfileCardProps {
   user: User
@@ -69,6 +70,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
   const canManageWebhook = checkPermission(PERMISSIONS.MANAGE_WEBHOOK)
   const canPromote = checkPermission(PERMISSIONS.PROMOTE_USER)
   const canManageConfig = checkPermission(PERMISSIONS.MANAGE_CONFIG)
+  const canManageUsers = checkPermission(PERMISSIONS.MANAGE_USERS)
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
@@ -147,6 +149,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
 
       {canManageConfig && <WebsiteConfigPanel />}
       {canManageConfig && <EmailServiceConfig />}
+      {canManageUsers && <AdminUserListPanel />}
       {canPromote && <PromotePanel />}
       {canManageWebhook && <ApiKeyPanel />}
 

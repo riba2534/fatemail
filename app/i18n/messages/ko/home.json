@@ -1,6 +1,6 @@
 {
-  "title": "MoeMail",
-  "subtitle": "귀여운 임시 이메일 서비스",
+  "title": "FateMail",
+  "subtitle": "운명이 전하는 임시 이메일",
   "features": {
     "privacy": {
       "title": "개인정보 보호",
@@ -11,8 +11,8 @@
       "description": "다른 사람과 메일함 공유"
     },
     "expiry": {
-      "title": "자동 만료",
-      "description": "기한이 되면 자동으로 만료"
+      "title": "찰나의 만남",
+      "description": "운명의 실은 언젠가 끊어진다"
     },
     "openapi": {
       "title": "Open API",
@@ -21,6 +21,6 @@
   },
   "actions": {
     "enterMailbox": "메일함 입장",
-    "getStarted": "시작하기"
+    "getStarted": "운명을 만나다"
   }
 }

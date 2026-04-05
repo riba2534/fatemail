@@ -13,6 +13,7 @@ export const PERMISSIONS = {
   PROMOTE_USER: 'promote_user',
   MANAGE_CONFIG: 'manage_config',
   MANAGE_API_KEY: 'manage_api_key',
+  MANAGE_USERS: 'manage_users',
 } as const;
 
 export type Permission = typeof PERMISSIONS[keyof typeof PERMISSIONS];

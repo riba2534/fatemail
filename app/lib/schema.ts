@@ -13,6 +13,8 @@ export const users = sqliteTable("user", {
   image: text("image"),
   username: text("username").unique(),
   password: text("password"),
+  createdAt: integer("created_at", { mode: "timestamp_ms" })
+    .$defaultFn(() => new Date()),
 })
 export const accounts = sqliteTable(
   "account",
@@ -81,6 +83,7 @@ export const webhooks = sqliteTable('webhook', {
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   url: text('url').notNull(),
+  type: text('type').notNull().default('standard'),
   enabled: integer('enabled', { mode: 'boolean' }).notNull().default(true),
   createdAt: integer('created_at', { mode: 'timestamp_ms' })
     .notNull()

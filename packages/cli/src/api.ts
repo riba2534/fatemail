@@ -18,11 +18,11 @@ async function request(
   const config = loadConfig();
 
   if (!config.apiUrl) {
-    log("Error: API URL not configured. Run: moemail config set api-url <url>");
+    log("Error: API URL not configured. Run: fatemail config set api-url <url>");
     process.exit(2);
   }
   if (!config.apiKey) {
-    log("Error: API Key not configured. Run: moemail config set api-key <key>");
+    log("Error: API Key not configured. Run: fatemail config set api-key <key>");
     process.exit(2);
   }
 

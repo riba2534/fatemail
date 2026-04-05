@@ -90,6 +90,8 @@
     "saveFailed": "保存配置失败",
     "testSuccess": "Webhook 测试成功",
     "testFailed": "Webhook 测试失败",
+    "feishuDetected": "🐦 检测到飞书群机器人",
+    "feishuHint": "我们会自动转换为飞书卡片消息格式。请在飞书机器人后台关闭\"签名校验\"。",
     "docs": {
       "intro": "当收到新邮件时，我们会向配置的 URL 发送 POST 请求，请求头包含:",
       "exampleBody": "请求体示例:",
@@ -135,5 +137,66 @@
     "loading": "加载中...",
     "updateSuccess": "用户角色更新成功",
     "updateFailed": "更新用户角色失败"
+  },
+  "admin": {
+    "title": "用户管理",
+    "description": "管理所有注册用户（仅皇帝可用）",
+    "loading": "加载中...",
+    "empty": "暂无用户",
+    "fetchFailed": "获取用户列表失败",
+    "total": "共 {count} 人",
+    "search": {
+      "placeholder": "按用户名或邮箱搜索"
+    },
+    "filter": {
+      "allRoles": "全部角色"
+    },
+    "column": {
+      "username": "用户名",
+      "email": "邮箱",
+      "role": "角色",
+      "createdAt": "注册时间",
+      "providers": "登录方式",
+      "actions": "操作"
+    },
+    "provider": {
+      "credentials": "密码",
+      "google": "Google",
+      "github": "GitHub"
+    },
+    "action": {
+      "changeRole": "改角色",
+      "resetPassword": "重置密码",
+      "refresh": "刷新"
+    },
+    "pagination": {
+      "page": "第 {page} / {total} 页"
+    },
+    "roleDialog": {
+      "title": "修改用户角色",
+      "description": "将 {user} 的角色修改为：",
+      "cannotSelf": "不能修改自己的角色",
+      "cannotEmperor": "不能修改皇帝的角色",
+      "confirm": "确认修改",
+      "cancel": "取消"
+    },
+    "roleUpdateSuccess": "角色更新成功",
+    "roleUpdateFailed": "角色更新失败",
+    "pwDialog": {
+      "title": "重置用户密码",
+      "description": "确认重置 {user} 的密码？重置后旧密码立即失效。",
+      "confirm": "继续",
+      "cancel": "取消",
+      "generate": "自动生成临时密码",
+      "manual": "手动输入新密码",
+      "placeholder": "至少 8 位",
+      "submit": "重置",
+      "tempPassword": "临时密码（请立即复制并通过安全渠道告知用户）",
+      "copyHint": "关闭本窗口后密码将不再显示",
+      "close": "关闭"
+    },
+    "pwResetSuccess": "密码重置成功",
+    "pwResetFailed": "密码重置失败",
+    "pwResetOAuthOnly": "OAuth 用户无法重置密码"
   }
 }

@@ -1,7 +1,7 @@
 
 <p align="center">
-  <img src="public/icons/icon-192x192.png" alt="MoeMail Logo" width="100" height="100">
-  <h1 align="center">MoeMail</h1>
+  <img src="public/icons/icon-192x192.png" alt="FateMail Logo" width="100" height="100">
+  <h1 align="center">FateMail</h1>
 </p>
 
 <p align="center">
@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <a href="https://www.producthunt.com/products/moemail?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-moemail" target="_blank" rel="noopener noreferrer"><img alt="MoeMail - OpenAPI‑first temp email, hosted &amp; ready | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1078475&amp;theme=light&amp;t=1770964043604"></a>
+  <a href="https://www.producthunt.com/products/fatemail?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-fatemail" target="_blank" rel="noopener noreferrer"><img alt="FateMail - OpenAPI‑first temp email, hosted &amp; ready | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1078475&amp;theme=light&amp;t=1770964043604"></a>
 </p>
 
 <p align="center">
@@ -41,7 +41,7 @@
 </p>
 
 ## Live Demo
-[https://moemail.app](https://moemail.app)
+[https://fate.email](https://fate.email)
 
 ![Home](https://pic.otaku.ren/20241209/AQADwsUxG9k1uVZ-.jpg "Home")
 
@@ -50,7 +50,7 @@
 ![Profile](https://pic.otaku.ren/20241227/AQADVsIxG7OzcFd-.jpg "Profile")
 
 ## Documentation
-**Full Documentation**: [https://docs.moemail.app](https://docs.moemail.app)
+**Full Documentation**: [https://docs.fate.email](https://docs.fate.email)
 
 The documentation site contains detailed usage guides, API documentation, deployment tutorials, and other complete information.
 
@@ -98,8 +98,8 @@ The documentation site contains detailed usage guides, API documentation, deploy
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/beilunyang/moemail.git
-cd moemail
+git clone https://github.com/riba2534/fatemail.git
+cd fatemail
 ```
 
 2. Install dependencies:
@@ -209,12 +209,12 @@ This project supports automated deployment using GitHub Actions. It supports the
 - Ensure all Secrets are set correctly.
 - When using tag trigger, the tag must start with `v` (e.g., v1.0.0).
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/beilunyang/moemail)
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/riba2534/fatemail)
 
 
 ## Email Domain Configuration
 
-In the MoeMail User Profile page, you can configure the site's email domains. Supports multiple domain configurations, separated by commas.
+In the FateMail User Profile page, you can configure the site's email domains. Supports multiple domain configurations, separated by commas.
 ![Email Domain Configuration](https://pic.otaku.ren/20241227/AQAD88AxG67zeVd-.jpg "Email Domain Configuration")
 
 ### Cloudflare Email Routing Configuration
@@ -309,7 +309,7 @@ System settings are stored in Cloudflare KV, including:
 
 ## Sending Emails
 
-MoeMail supports sending emails using temporary addresses, based on [Resend](https://resend.com/) service.
+FateMail supports sending emails using temporary addresses, based on [Resend](https://resend.com/) service.
 
 ### Features
 
@@ -394,7 +394,7 @@ X-Webhook-Event: new_message
   "content": "Email Text Content",
   "html": "Email HTML Content",
   "receivedAt": "2024-01-01T12:00:00.000Z",
-  "toAddress": "your-email@moemail.app"
+  "toAddress": "your-email@fate.email"
 }
 ```
 
@@ -445,7 +445,7 @@ Response:
 ```json
 {
   "defaultRole": "CIVILIAN",
-  "emailDomains": "moemail.app,example.com",
+  "emailDomains": "fate.email,example.com",
   "adminContact": "admin@example.com",
   "maxEmails": "10"
 }
@@ -459,7 +459,7 @@ Content-Type: application/json
 {
   "name": "test",
   "expiryTime": 3600000,
-  "domain": "moemail.app"
+  "domain": "fate.email"
 }
 ```
 Params:
@@ -471,7 +471,7 @@ Response:
 ```json
 {
   "id": "email-uuid-123",
-  "email": "test@moemail.app"
+  "email": "test@fate.email"
 }
 ```
 
@@ -537,32 +537,32 @@ DELETE /api/emails/{emailId}/messages/{messageId}/share/{shareId}
 
 ## CLI Tool
 
-MoeMail provides an agent-first CLI tool for AI agents and automation workflows.
+FateMail provides an agent-first CLI tool for AI agents and automation workflows.
 
 ### Install
 
 ```bash
-npm i -g @moemail/cli
+npm i -g @fatemail/cli
 ```
 
 ### Quick Start
 
 ```bash
 # Configure API endpoint and key
-moemail config set api-url https://moemail.app
-moemail config set api-key YOUR_API_KEY
+fatemail config set api-url https://fate.email
+fatemail config set api-key YOUR_API_KEY
 
 # Create temporary email
-moemail create --domain moemail.app --expiry 1h --json
+fatemail create --domain fate.email --expiry 1h --json
 
 # Wait for new messages (polling)
-moemail wait --email-id <id> --timeout 120 --json
+fatemail wait --email-id <id> --timeout 120 --json
 
 # Read message content
-moemail read --email-id <id> --message-id <id> --json
+fatemail read --email-id <id> --message-id <id> --json
 
 # Delete email
-moemail delete --email-id <id>
+fatemail delete --email-id <id>
 ```
 
 ### Agent Workflow
@@ -571,29 +571,29 @@ A typical AI agent verification flow in 3 tool calls:
 
 ```bash
 # 1. Create mailbox
-EMAIL=$(moemail create --domain moemail.app --expiry 1h --json)
+EMAIL=$(fatemail create --domain fate.email --expiry 1h --json)
 EMAIL_ID=$(echo $EMAIL | jq -r '.id')
 ADDRESS=$(echo $EMAIL | jq -r '.address')
 
 # 2. Wait for verification email
-MSG=$(moemail wait --email-id $EMAIL_ID --timeout 120 --json)
+MSG=$(fatemail wait --email-id $EMAIL_ID --timeout 120 --json)
 MSG_ID=$(echo $MSG | jq -r '.messageId')
 
 # 3. Read content, extract verification code
-CONTENT=$(moemail read --email-id $EMAIL_ID --message-id $MSG_ID --json)
+CONTENT=$(fatemail read --email-id $EMAIL_ID --message-id $MSG_ID --json)
 ```
 
 ### AI Agent Skill
 
-Install the built-in skill so AI agents (Claude Code, Codex, etc.) automatically know how to use MoeMail:
+Install the built-in skill so AI agents (Claude Code, Codex, etc.) automatically know how to use FateMail:
 
 ```bash
 # Auto-detect installed agent platforms and install
-moemail skill install
+fatemail skill install
 
 # Or specify a platform
-moemail skill install --platform claude
-moemail skill install --platform codex
+fatemail skill install --platform claude
+fatemail skill install --platform codex
 ```
 
 For full documentation, see [packages/cli/README.md](packages/cli/README.md).
@@ -660,7 +660,7 @@ Welcome to submit Pull Requests or Issues to help improve this project.
       Follow official account for more project updates, AI, Blockchain, and Indie Dev news.
     </td>
     <td>
-      Add WeChat, remark "MoeMail" to join the WeChat community group.
+      Add WeChat, remark "FateMail" to join the WeChat community group.
     </td>
   </tr>
 </table>
@@ -678,10 +678,10 @@ Or sponsor it
 
 ## Star History
 
-<a href="https://www.star-history.com/#beilunyang/moemail&Date">
+<a href="https://www.star-history.com/#riba2534/fatemail&Date">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=beilunyang/moemail&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=beilunyang/moemail&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=beilunyang/moemail&type=Date" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=riba2534/fatemail&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=riba2534/fatemail&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=riba2534/fatemail&type=Date" />
  </picture>
 </a>

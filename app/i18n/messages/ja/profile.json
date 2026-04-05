@@ -90,6 +90,8 @@
     "saveFailed": "設定の保存に失敗しました",
     "testSuccess": "Webhook テストに成功しました",
     "testFailed": "Webhook テストに失敗しました",
+    "feishuDetected": "🐦 Feishu（Lark）Bot を検出しました",
+    "feishuHint": "Feishu カードメッセージ形式に自動変換します。Bot 設定の「署名検証」を無効化してください。",
     "docs": {
       "intro": "新しいメールを受信すると、設定した URL に POST リクエストを送信します。リクエストヘッダーには以下が含まれます:",
       "exampleBody": "リクエストボディ例:",
@@ -135,5 +137,66 @@
     "loading": "読み込み中...",
     "updateSuccess": "ユーザーロールを更新しました",
     "updateFailed": "ユーザーロールの更新に失敗しました"
+  },
+  "admin": {
+    "title": "ユーザー管理",
+    "description": "全ての登録ユーザーを管理（皇帝のみ利用可能）",
+    "loading": "読み込み中...",
+    "empty": "ユーザーがいません",
+    "fetchFailed": "ユーザー一覧の取得に失敗しました",
+    "total": "合計 {count} 人",
+    "search": {
+      "placeholder": "ユーザー名またはメールで検索"
+    },
+    "filter": {
+      "allRoles": "全てのロール"
+    },
+    "column": {
+      "username": "ユーザー名",
+      "email": "メール",
+      "role": "ロール",
+      "createdAt": "登録日",
+      "providers": "ログイン方法",
+      "actions": "操作"
+    },
+    "provider": {
+      "credentials": "パスワード",
+      "google": "Google",
+      "github": "GitHub"
+    },
+    "action": {
+      "changeRole": "ロール変更",
+      "resetPassword": "パスワードリセット",
+      "refresh": "更新"
+    },
+    "pagination": {
+      "page": "{page} / {total} ページ"
+    },
+    "roleDialog": {
+      "title": "ユーザーロールの変更",
+      "description": "{user} のロールを次に変更：",
+      "cannotSelf": "自分のロールは変更できません",
+      "cannotEmperor": "皇帝のロールは変更できません",
+      "confirm": "変更を確定",
+      "cancel": "キャンセル"
+    },
+    "roleUpdateSuccess": "ロールを更新しました",
+    "roleUpdateFailed": "ロールの更新に失敗しました",
+    "pwDialog": {
+      "title": "ユーザーパスワードのリセット",
+      "description": "{user} のパスワードをリセットしますか？元のパスワードは即時無効化されます。",
+      "confirm": "続行",
+      "cancel": "キャンセル",
+      "generate": "一時パスワードを自動生成",
+      "manual": "新しいパスワードを入力",
+      "placeholder": "8 文字以上",
+      "submit": "リセット",
+      "tempPassword": "一時パスワード（すぐにコピーし、安全な経路でユーザーに伝えてください）",
+      "copyHint": "このウィンドウを閉じるとパスワードは再表示されません",
+      "close": "閉じる"
+    },
+    "pwResetSuccess": "パスワードをリセットしました",
+    "pwResetFailed": "パスワードのリセットに失敗しました",
+    "pwResetOAuthOnly": "OAuth ユーザーのパスワードはリセットできません"
   }
 }

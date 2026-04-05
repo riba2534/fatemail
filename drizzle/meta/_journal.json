@@ -134,6 +134,20 @@
       "when": 1767115268752,
       "tag": "0018_conscious_tusk",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "6",
+      "when": 1775418696017,
+      "tag": "0019_flippant_sphinx",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "6",
+      "when": 1775418963460,
+      "tag": "0020_supreme_sister_grimm",
+      "breakpoints": true
     }
   ]
 }

@@ -12,8 +12,8 @@ import { registerSkillCommand } from "./commands/skill.js";
 const program = new Command();
 
 program
-  .name("moemail")
-  .description("MoeMail CLI — Agent-friendly temporary email tool")
+  .name("fatemail")
+  .description("FateMail CLI — Agent-friendly temporary email tool")
   .version("0.1.2")
   .option("--json", "output as JSON");
 

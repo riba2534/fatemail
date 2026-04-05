@@ -27,13 +27,13 @@ function getPlatforms(): Platform[] {
       id: "claude",
       name: "Claude Code",
       dir: join(home, ".claude"),
-      skillPath: join(home, ".claude", "skills", "moemail", "SKILL.md"),
+      skillPath: join(home, ".claude", "skills", "fatemail", "SKILL.md"),
     },
     {
       id: "codex",
       name: "Codex",
       dir: codexHome,
-      skillPath: join(codexHome, "skills", "moemail", "SKILL.md"),
+      skillPath: join(codexHome, "skills", "fatemail", "SKILL.md"),
     },
   ];
 }
@@ -70,11 +70,11 @@ function installTo(platform: Platform, content: string): boolean {
 export function registerSkillCommand(program: Command) {
   const skill = program
     .command("skill")
-    .description("Manage MoeMail AI agent skill");
+    .description("Manage FateMail AI agent skill");
 
   skill
     .command("install")
-    .description("Install MoeMail skill to AI agent platforms")
+    .description("Install FateMail skill to AI agent platforms")
     .option(
       "--platform <platform>",
       "target platform: claude, codex, all (default: auto-detect)"

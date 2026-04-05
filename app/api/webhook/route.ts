@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth"
 import { createDb } from "@/lib/db"
 import { webhooks } from "@/lib/schema"
+import { detectWebhookType } from "@/lib/webhook-adapter"
 import { eq } from "drizzle-orm"
 import { z } from "zod"
 
@@ -19,7 +20,7 @@ export async function GET() {
     where: eq(webhooks.userId, session!.user!.id!)
   })
 
-  return Response.json(webhook || { enabled: false, url: "" })
+  return Response.json(webhook || { enabled: false, url: "", type: "standard" })
 }
 
 export async function POST(request: Request) {
@@ -31,7 +32,8 @@ export async function POST(request: Request) {
   try {
     const body = await request.json()
     const { url, enabled } = webhookSchema.parse(body)
-    
+    const type = detectWebhookType(url)
+
     const db = createDb()
     const now = new Date()
 
@@ -45,6 +47,7 @@ export async function POST(request: Request) {
         .set({
           url,
           enabled,
+          type,
           updatedAt: now
         })
         .where(eq(webhooks.userId, session.user.id))
@@ -54,11 +57,12 @@ export async function POST(request: Request) {
         .values({
           userId: session.user.id,
           url,
+          type,
           enabled,
         })
     }
 
-    return Response.json({ success: true })
+    return Response.json({ success: true, type })
   } catch (error) {
     console.error("Failed to save webhook:", error)
     return Response.json(
@@ -66,4 +70,4 @@ export async function POST(request: Request) {
       { status: 400 }
     )
   }
-} 
+}

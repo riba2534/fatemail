@@ -1,6 +1,6 @@
 {
-  "title": "MoeMail",
-  "subtitle": "萌萌哒临时邮箱服务",
+  "title": "FateMail",
+  "subtitle": "命运投递的临时邮箱",
   "features": {
     "privacy": {
       "title": "隐私保护",
@@ -11,8 +11,8 @@
       "description": "将邮箱分享给其他人使用"
     },
     "expiry": {
-      "title": "自动过期",
-      "description": "到期自动失效"
+      "title": "转瞬即逝",
+      "description": "命运的丝线终将断开"
     },
     "openapi": {
       "title": "开放 API",
@@ -21,7 +21,6 @@
   },
   "actions": {
     "enterMailbox": "进入邮箱",
-    "getStarted": "开始使用"
+    "getStarted": "开始你的缘分"
   }
 }
-

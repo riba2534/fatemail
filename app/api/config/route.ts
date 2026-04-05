@@ -29,7 +29,7 @@ export async function GET() {
 
   return Response.json({
     defaultRole: defaultRole || ROLES.CIVILIAN,
-    emailDomains: emailDomains || "moemail.app",
+    emailDomains: emailDomains || "fate.email",
     adminContact: adminContact || "",
     maxEmails: maxEmails || EMAIL_CONFIG.MAX_ACTIVE_EMAILS.toString(),
     turnstile: canManageConfig ? {
