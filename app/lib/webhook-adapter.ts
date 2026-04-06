@@ -31,8 +31,10 @@ function truncate(text: string, max: number): string {
 function formatTime(isoString: string): string {
   try {
     const d = new Date(isoString)
+    // UTC+8 北京时间
+    const beijing = new Date(d.getTime() + 8 * 60 * 60 * 1000)
     const pad = (n: number) => String(n).padStart(2, "0")
-    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`
+    return `${beijing.getUTCFullYear()}-${pad(beijing.getUTCMonth() + 1)}-${pad(beijing.getUTCDate())} ${pad(beijing.getUTCHours())}:${pad(beijing.getUTCMinutes())}`
   } catch {
     return isoString
   }
