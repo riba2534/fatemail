@@ -105,6 +105,13 @@
     "adminContact": "Admin Contact",
     "adminContactPlaceholder": "Email or other contact method",
     "maxEmails": "Max Emails per User",
+    "thirdPartyLogin": {
+      "title": "Third-Party Login",
+      "githubEnable": "GitHub Login",
+      "githubDescription": "Allow users to sign in with GitHub",
+      "googleEnable": "Google Login",
+      "googleDescription": "Allow users to sign in with Google (requires OAuth config)"
+    },
     "turnstile": {
       "enable": "Enable Cloudflare Turnstile",
       "enableDescription": "When enabled, username/password login and registration require Turnstile verification",

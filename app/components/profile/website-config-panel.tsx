@@ -30,6 +30,8 @@ export function WebsiteConfigPanel() {
   const [turnstileSiteKey, setTurnstileSiteKey] = useState("")
   const [turnstileSecretKey, setTurnstileSecretKey] = useState("")
   const [showSecretKey, setShowSecretKey] = useState(false)
+  const [githubLoginEnabled, setGithubLoginEnabled] = useState(true)
+  const [googleLoginEnabled, setGoogleLoginEnabled] = useState(false)
   const [loading, setLoading] = useState(false)
   const { toast } = useToast()
 
@@ -41,11 +43,13 @@ export function WebsiteConfigPanel() {
   const fetchConfig = async () => {
     const res = await fetch("/api/config")
     if (res.ok) {
-      const data = await res.json() as { 
+      const data = await res.json() as {
         defaultRole: Exclude<Role, typeof ROLES.EMPEROR>,
         emailDomains: string,
         adminContact: string,
         maxEmails: string,
+        githubLoginEnabled?: boolean,
+        googleLoginEnabled?: boolean,
         turnstile?: {
           enabled: boolean,
           siteKey: string,
@@ -56,6 +60,8 @@ export function WebsiteConfigPanel() {
       setEmailDomains(data.emailDomains)
       setAdminContact(data.adminContact)
       setMaxEmails(data.maxEmails || EMAIL_CONFIG.MAX_ACTIVE_EMAILS.toString())
+      setGithubLoginEnabled(data.githubLoginEnabled ?? true)
+      setGoogleLoginEnabled(data.googleLoginEnabled ?? false)
       setTurnstileEnabled(Boolean(data.turnstile?.enabled))
       setTurnstileSiteKey(data.turnstile?.siteKey ?? "")
       setTurnstileSecretKey(data.turnstile?.secretKey ?? "")
@@ -68,11 +74,13 @@ export function WebsiteConfigPanel() {
       const res = await fetch("/api/config", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          defaultRole, 
+        body: JSON.stringify({
+          defaultRole,
           emailDomains,
           adminContact,
           maxEmails: maxEmails || EMAIL_CONFIG.MAX_ACTIVE_EMAILS.toString(),
+          githubLoginEnabled,
+          googleLoginEnabled,
           turnstile: {
             enabled: turnstileEnabled,
             siteKey: turnstileSiteKey,
@@ -123,7 +131,7 @@ export function WebsiteConfigPanel() {
         <div className="flex items-center gap-4">
           <span className="text-sm">{t("emailDomains")}:</span>
           <div className="flex-1">
-            <Input 
+            <Input
               value={emailDomains}
               onChange={(e) => setEmailDomains(e.target.value)}
               placeholder={t("emailDomainsPlaceholder")}
@@ -134,7 +142,7 @@ export function WebsiteConfigPanel() {
         <div className="flex items-center gap-4">
           <span className="text-sm">{t("adminContact")}:</span>
           <div className="flex-1">
-            <Input 
+            <Input
               value={adminContact}
               onChange={(e) => setAdminContact(e.target.value)}
               placeholder={t("adminContactPlaceholder")}
@@ -145,7 +153,7 @@ export function WebsiteConfigPanel() {
         <div className="flex items-center gap-4">
           <span className="text-sm">{t("maxEmails")}:</span>
           <div className="flex-1">
-            <Input 
+            <Input
               type="number"
               min="1"
               max="100"
@@ -156,6 +164,44 @@ export function WebsiteConfigPanel() {
           </div>
         </div>
 
+        {/* 第三方登录开关 */}
+        <div className="space-y-3 rounded-lg border border-dashed border-primary/40 p-4">
+          <p className="text-sm font-medium">{t("thirdPartyLogin.title")}</p>
+
+          <div className="flex items-center justify-between">
+            <div className="space-y-0.5">
+              <Label htmlFor="github-login" className="text-sm">
+                {t("thirdPartyLogin.githubEnable")}
+              </Label>
+              <p className="text-xs text-muted-foreground">
+                {t("thirdPartyLogin.githubDescription")}
+              </p>
+            </div>
+            <Switch
+              id="github-login"
+              checked={githubLoginEnabled}
+              onCheckedChange={setGithubLoginEnabled}
+            />
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="space-y-0.5">
+              <Label htmlFor="google-login" className="text-sm">
+                {t("thirdPartyLogin.googleEnable")}
+              </Label>
+              <p className="text-xs text-muted-foreground">
+                {t("thirdPartyLogin.googleDescription")}
+              </p>
+            </div>
+            <Switch
+              id="google-login"
+              checked={googleLoginEnabled}
+              onCheckedChange={setGoogleLoginEnabled}
+            />
+          </div>
+        </div>
+
+        {/* Turnstile 配置 */}
         <div className="space-y-4 rounded-lg border border-dashed border-primary/40 p-4">
           <div className="flex items-center justify-between">
             <div className="space-y-1">
@@ -213,7 +259,7 @@ export function WebsiteConfigPanel() {
           </div>
         </div>
 
-        <Button 
+        <Button
           onClick={handleSave}
           disabled={loading}
           className="w-full"
@@ -223,4 +269,4 @@ export function WebsiteConfigPanel() {
       </div>
     </div>
   )
-} 
+}

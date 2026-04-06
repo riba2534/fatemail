@@ -105,6 +105,13 @@
     "adminContact": "관리자 연락처",
     "adminContactPlaceholder": "이메일 또는 기타 연락 방법",
     "maxEmails": "사용자당 최대 이메일 수",
+    "thirdPartyLogin": {
+      "title": "타사 로그인",
+      "githubEnable": "GitHub 로그인",
+      "githubDescription": "사용자가 GitHub 계정으로 로그인할 수 있도록 허용",
+      "googleEnable": "Google 로그인",
+      "googleDescription": "사용자가 Google 계정으로 로그인할 수 있도록 허용 (OAuth 설정 필요)"
+    },
     "turnstile": {
       "enable": "Cloudflare Turnstile 활성화",
       "enableDescription": "활성화되면 사용자 이름/비밀번호 로그인 및 회원가입에 Turnstile 인증이 필요합니다",

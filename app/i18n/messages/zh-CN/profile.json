@@ -105,6 +105,13 @@
     "adminContact": "管理员联系方式",
     "adminContactPlaceholder": "邮箱或其他联系方式",
     "maxEmails": "每个用户最大邮箱数",
+    "thirdPartyLogin": {
+      "title": "第三方登录",
+      "githubEnable": "GitHub 登录",
+      "githubDescription": "允许用户通过 GitHub 账号登录",
+      "googleEnable": "Google 登录",
+      "googleDescription": "允许用户通过 Google 账号登录（需先配置 OAuth）"
+    },
     "turnstile": {
       "enable": "启用 Cloudflare Turnstile",
       "enableDescription": "开启后，账号登录与注册将需要通过 Turnstile 验证",
