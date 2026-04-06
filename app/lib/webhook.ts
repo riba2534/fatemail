@@ -1,5 +1,5 @@
 import { WEBHOOK_CONFIG } from "@/config"
-import { buildWebhookPayload, WebhookType } from "@/lib/webhook-adapter"
+import { buildFeishuPayload } from "@/lib/webhook-adapter"
 
 export interface EmailMessage {
   emailId: string
@@ -12,19 +12,9 @@ export interface EmailMessage {
   toAddress: string
 }
 
-export interface WebhookPayload {
-  event: typeof WEBHOOK_CONFIG.EVENTS[keyof typeof WEBHOOK_CONFIG.EVENTS]
-  data: EmailMessage
-}
-
-export async function callWebhook(
-  url: string,
-  payload: WebhookPayload,
-  type: WebhookType = "standard",
-) {
+export async function callFeishuWebhook(url: string, data: EmailMessage) {
   let lastError: Error | null = null
-
-  const { headers, body } = buildWebhookPayload(type, payload.data)
+  const { headers, body } = buildFeishuPayload(data)
 
   for (let i = 0; i < WEBHOOK_CONFIG.MAX_RETRIES; i++) {
     try {

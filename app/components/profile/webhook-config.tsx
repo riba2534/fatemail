@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 
 import { useState, useEffect } from "react"
@@ -6,10 +5,8 @@ import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
 import { useToast } from "@/components/ui/use-toast"
-import { Loader2, Send, ChevronDown, ChevronUp, MessageSquare } from "lucide-react"
-import { detectWebhookType } from "@/lib/webhook-adapter"
+import { Loader2, Send, Trash2, CheckCircle2 } from "lucide-react"
 import {
   Tooltip,
   TooltipContent,
@@ -19,14 +16,11 @@ import {
 
 export function WebhookConfig() {
   const t = useTranslations("profile.webhook")
-  const tCommon = useTranslations("common.actions")
   const tMessages = useTranslations("emails.messages")
-  const tApiKey = useTranslations("profile.apiKey")
-  const [enabled, setEnabled] = useState(false)
   const [url, setUrl] = useState("")
+  const [savedUrl, setSavedUrl] = useState("")
   const [loading, setLoading] = useState(false)
   const [testing, setTesting] = useState(false)
-  const [showDocs, setShowDocs] = useState(false)
   const [initialLoading, setInitialLoading] = useState(true)
   const { toast } = useToast()
 
@@ -34,8 +28,8 @@ export function WebhookConfig() {
     fetch("/api/webhook")
       .then(res => res.json() as Promise<{ enabled: boolean; url: string }>)
       .then(data => {
-        setEnabled(data.enabled)
-        setUrl(data.url)
+        setUrl(data.url || "")
+        setSavedUrl(data.url || "")
       })
       .catch(console.error)
       .finally(() => setInitialLoading(false))
@@ -43,39 +37,34 @@ export function WebhookConfig() {
 
   if (initialLoading) {
     return (
-      <div className="text-center">
-        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-          <Loader2 className="w-6 h-6 text-primary animate-spin" />
-        </div>
-        <div>
-          <p className="text-sm text-muted-foreground">{tMessages("loading")}</p>
-        </div>
+      <div className="text-center py-4">
+        <Loader2 className="w-6 h-6 text-primary animate-spin mx-auto" />
+        <p className="text-sm text-muted-foreground mt-2">{tMessages("loading")}</p>
       </div>
     )
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!url) return
+    if (!url.trim()) return
 
     setLoading(true)
     try {
       const res = await fetch("/api/webhook", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url, enabled })
+        body: JSON.stringify({ url: url.trim() })
       })
 
-      if (!res.ok) throw new Error(t("saveFailed"))
+      const data = await res.json() as { success?: boolean; error?: string }
+      if (!res.ok) throw new Error(data.error || t("saveFailed"))
 
-      toast({
-        title: t("saveSuccess"),
-        description: t("saveSuccess")
-      })
-    } catch (_error) {
+      setSavedUrl(url.trim())
+      toast({ title: t("saveSuccess") })
+    } catch (error) {
       toast({
         title: t("saveFailed"),
-        description: t("saveFailed"),
+        description: error instanceof Error ? error.message : undefined,
         variant: "destructive"
       })
     } finally {
@@ -83,27 +72,44 @@ export function WebhookConfig() {
     }
   }
 
+  const handleClear = async () => {
+    setLoading(true)
+    try {
+      const res = await fetch("/api/webhook", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: "" })
+      })
+      if (!res.ok) throw new Error()
+      setUrl("")
+      setSavedUrl("")
+      toast({ title: t("clearSuccess") })
+    } catch {
+      toast({ title: t("saveFailed"), variant: "destructive" })
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const handleTest = async () => {
-    if (!url) return
+    if (!savedUrl) return
 
     setTesting(true)
     try {
       const res = await fetch("/api/webhook/test", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url })
+        body: JSON.stringify({ url: savedUrl })
       })
 
-      if (!res.ok) throw new Error(t("testFailed"))
+      const data = await res.json() as { success?: boolean; error?: string }
+      if (!res.ok) throw new Error(data.error || t("testFailed"))
 
-      toast({
-        title: t("testSuccess"),
-        description: t("testSuccess")
-      })
-    } catch (_error) {
+      toast({ title: t("testSuccess") })
+    } catch (error) {
       toast({
         title: t("testFailed"),
-        description: t("testFailed"),
+        description: error instanceof Error ? error.message : undefined,
         variant: "destructive"
       })
     } finally {
@@ -111,115 +117,87 @@ export function WebhookConfig() {
     }
   }
 
+  const isConfigured = !!savedUrl
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="flex items-center justify-between">
-        <div className="space-y-0.5">
-          <Label>{t("enable")}</Label>
-          <div className="text-sm text-muted-foreground">
-            {t("description")}
-          </div>
-        </div>
-        <Switch
-          checked={enabled}
-          onCheckedChange={setEnabled}
-        />
+    <div className="space-y-4">
+      <div className="space-y-1.5">
+        <p className="text-sm text-muted-foreground">{t("description")}</p>
       </div>
 
-      {enabled && (
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="webhook-url">{t("url")}</Label>
-            <div className="flex gap-2">
-              <Input
-                id="webhook-url"
-                placeholder={t("urlPlaceholder")}
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                type="url"
-                required
-              />
-              <Button type="submit" disabled={loading} className="flex-shrink-0">
-                {loading ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  tCommon("save")
-                )}
-              </Button>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={handleTest}
-                      disabled={testing || !url}
-                    >
-                      {testing ? (
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                      ) : (
-                        <Send className="w-4 h-4" />
-                      )}
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{t("test")}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
-            <p className="text-xs text-muted-foreground">
-              {t("description2")}
-            </p>
-            {url && detectWebhookType(url) === "feishu" && (
-              <div className="flex items-start gap-2 text-xs text-primary bg-primary/10 rounded px-2 py-1.5">
-                <MessageSquare className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
-                <div>
-                  <div className="font-medium">{t("feishuDetected")}</div>
-                  <div className="text-muted-foreground mt-0.5">
-                    {t("feishuHint")}
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <button
-              type="button"
-              className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
-              onClick={() => setShowDocs(!showDocs)}
-            >
-              {showDocs ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-              {t("description3")}
-            </button>
-
-            {showDocs && (
-              <div className="rounded-md bg-muted p-4 text-sm space-y-3">
-                <p>{t("docs.intro")}</p>
-                <pre className="bg-background p-2 rounded text-xs">
-                  Content-Type: application/json{'\n'}
-                  X-Webhook-Event: new_message
-                </pre>
-
-                <p>{t("docs.exampleBody")}</p>
-                <pre className="bg-background p-2 rounded text-xs overflow-auto">
-                  {`{
-  "emailId": "email-uuid",
-  "messageId": "message-uuid",
-  "fromAddress": "sender@example.com",
-  "subject": "${t("docs.subject")}",
-  "content": "${t("docs.content")}",
-  "html": "${t("docs.html")}",
-  "receivedAt": "2024-01-01T12:00:00.000Z",
-  "toAddress": "your-email@${window.location.host}"
-}`}
-                </pre>
-              </div>
-            )}
-          </div>
+      {isConfigured && (
+        <div className="flex items-center gap-2 text-sm text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 rounded-lg px-3 py-2">
+          <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
+          <span>{t("active")}</span>
         </div>
       )}
-    </form>
+
+      <form onSubmit={handleSave} className="space-y-3">
+        <div className="space-y-2">
+          <Label htmlFor="webhook-url">{t("url")}</Label>
+          <div className="flex gap-2">
+            <Input
+              id="webhook-url"
+              placeholder={t("urlPlaceholder")}
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              type="url"
+            />
+            <Button type="submit" disabled={loading || !url.trim() || url.trim() === savedUrl} className="flex-shrink-0">
+              {loading ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                t("save")
+              )}
+            </Button>
+          </div>
+          <p className="text-xs text-muted-foreground">{t("urlHint")}</p>
+        </div>
+      </form>
+
+      {isConfigured && (
+        <div className="flex gap-2">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleTest}
+                  disabled={testing}
+                >
+                  {testing ? (
+                    <Loader2 className="w-4 h-4 animate-spin mr-1" />
+                  ) : (
+                    <Send className="w-4 h-4 mr-1" />
+                  )}
+                  {t("test")}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{t("testTip")}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleClear}
+            disabled={loading}
+            className="text-destructive hover:text-destructive"
+          >
+            <Trash2 className="w-4 h-4 mr-1" />
+            {t("clear")}
+          </Button>
+        </div>
+      )}
+
+      <div className="rounded-lg border border-dashed border-primary/20 p-3 text-xs text-muted-foreground space-y-1">
+        <p>{t("help.step1")}</p>
+        <p>{t("help.step2")}</p>
+        <p>{t("help.step3")}</p>
+      </div>
+    </div>
   )
-} 
+}

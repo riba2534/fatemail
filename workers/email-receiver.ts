@@ -3,7 +3,7 @@ import { drizzle } from 'drizzle-orm/d1'
 import { messages, emails, webhooks } from '../app/lib/schema'
 import { eq, sql } from 'drizzle-orm'
 import PostalMime from 'postal-mime'
-import { buildWebhookPayload, WebhookType } from '../app/lib/webhook-adapter'
+import { buildFeishuPayload } from '../app/lib/webhook-adapter'
 
 const handleEmail = async (message: ForwardableEmailMessage, env: Env) => {
   const db = drizzle(env.DB, { schema: { messages, emails, webhooks } })
@@ -35,28 +35,21 @@ const handleEmail = async (message: ForwardableEmailMessage, env: Env) => {
       where: eq(webhooks.userId, targetEmail!.userId!)
     })
 
-    if (webhook?.enabled) {
+    if (webhook?.enabled && webhook.url) {
       try {
-        const { headers, body } = buildWebhookPayload(
-          (webhook.type as WebhookType) || 'standard',
-          {
-            emailId: targetEmail.id,
-            messageId: savedMessage.id,
-            fromAddress: savedMessage.fromAddress ?? '',
-            subject: savedMessage.subject,
-            content: savedMessage.content,
-            html: savedMessage.html ?? '',
-            receivedAt: savedMessage.receivedAt.toISOString(),
-            toAddress: targetEmail.address
-          },
-        )
-        await fetch(webhook.url, {
-          method: 'POST',
-          headers,
-          body,
+        const { headers, body } = buildFeishuPayload({
+          emailId: targetEmail.id,
+          messageId: savedMessage.id,
+          fromAddress: savedMessage.fromAddress ?? '',
+          subject: savedMessage.subject,
+          content: savedMessage.content,
+          html: savedMessage.html ?? '',
+          receivedAt: savedMessage.receivedAt.toISOString(),
+          toAddress: targetEmail.address,
         })
+        await fetch(webhook.url, { method: 'POST', headers, body })
       } catch (error) {
-        console.error('Failed to send webhook:', error)
+        console.error('Failed to send feishu webhook:', error)
       }
     }
 

@@ -75,29 +75,25 @@
     "enabled": "送信権限が有効です"
   },
   "webhook": {
-    "title": "Webhook 設定",
-    "description": "新しいメールを受信した際に指定した URL に通知します",
-    "description2": "この URL に新しいメール情報を含む POST リクエストを送信します",
-    "description3": "データ形式を見る",
-    "enable": "Webhook を有効化",
-    "url": "Webhook URL",
-    "urlPlaceholder": "Webhook URL を入力",
-    "test": "テスト",
-    "testing": "テスト中...",
-    "save": "設定を保存",
-    "saving": "保存中...",
-    "saveSuccess": "設定を保存しました",
-    "saveFailed": "設定の保存に失敗しました",
-    "testSuccess": "Webhook テストに成功しました",
-    "testFailed": "Webhook テストに失敗しました",
-    "feishuDetected": "🐦 Feishu（Lark）Bot を検出しました",
-    "feishuHint": "Feishu カードメッセージ形式に自動変換します。Bot 設定の「署名検証」を無効化してください。",
-    "docs": {
-      "intro": "新しいメールを受信すると、設定した URL に POST リクエストを送信します。リクエストヘッダーには以下が含まれます:",
-      "exampleBody": "リクエストボディ例:",
-      "subject": "メール件名",
-      "content": "メールテキスト内容",
-      "html": "メール HTML 内容"
+    "title": "飛書 Webhook",
+    "description": "新しいメールを受信すると、飛書グループチャットにカード通知を自動送信します",
+    "url": "飛書ボット Webhook アドレス",
+    "urlPlaceholder": "https://open.larkoffice.com/open-apis/bot/v2/hook/...",
+    "urlHint": "飛書グループのカスタムボットの Webhook アドレスを貼り付けてください",
+    "save": "保存",
+    "saveSuccess": "飛書 Webhook を保存しました",
+    "saveFailed": "保存に失敗しました",
+    "test": "テスト送信",
+    "testTip": "飛書グループにテストカードを送信します",
+    "testSuccess": "テストメッセージを送信しました。飛書グループをご確認ください",
+    "testFailed": "送信に失敗しました。ボットの設定をご確認ください",
+    "active": "✓ 有効 · 新しいメールは飛書グループに自動通知されます",
+    "clear": "クリア",
+    "clearSuccess": "飛書 Webhook をクリアしました",
+    "help": {
+      "step1": "① 飛書グループチャット → 設定 → グループボット → 「カスタムボット」を追加",
+      "step2": "② Webhook アドレスをコピーし、上の入力欄に貼り付けて保存してください",
+      "step3": "③ メッセージが正常に届くよう、ボットの「署名検証」を無効化することをお勧めします"
     }
   },
   "website": {

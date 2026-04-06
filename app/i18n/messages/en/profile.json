@@ -75,29 +75,25 @@
     "enabled": "Sending permission enabled"
   },
   "webhook": {
-    "title": "Webhook Configuration",
-    "description": "Notify specified URL when new emails arrive",
-    "description2": "We will send a POST request to this URL with information about the new email",
-    "description3": "View data format documentation",
-    "enable": "Enable Webhook",
-    "url": "Webhook URL",
-    "urlPlaceholder": "Enter webhook URL",
-    "test": "Test",
-    "testing": "Testing...",
-    "save": "Save Configuration",
-    "saving": "Saving...",
-    "saveSuccess": "Configuration saved successfully",
-    "saveFailed": "Failed to save configuration",
-    "testSuccess": "Webhook test successful",
-    "testFailed": "Webhook test failed",
-    "feishuDetected": "🐦 Feishu (Lark) bot detected",
-    "feishuHint": "We'll automatically convert to the Feishu interactive card format. Please disable signature verification in your bot settings.",
-    "docs": {
-      "intro": "When a new email is received, we will send a POST request to the configured URL with the following headers:",
-      "exampleBody": "Request body example:",
-      "subject": "Email Subject",
-      "content": "Email text content",
-      "html": "Email HTML content"
+    "title": "Feishu Webhook",
+    "description": "Automatically send Feishu card notifications to group chat when new emails arrive",
+    "url": "Feishu Bot Webhook URL",
+    "urlPlaceholder": "https://open.larkoffice.com/open-apis/bot/v2/hook/...",
+    "urlHint": "Paste the Webhook URL of your Feishu group custom bot",
+    "save": "Save",
+    "saveSuccess": "Feishu Webhook saved",
+    "saveFailed": "Failed to save",
+    "test": "Send Test",
+    "testTip": "Send a test card to the Feishu group",
+    "testSuccess": "Test message sent, please check your Feishu group",
+    "testFailed": "Failed to send, please check bot configuration",
+    "active": "✓ Enabled · New emails will be automatically notified to Feishu group",
+    "clear": "Clear",
+    "clearSuccess": "Feishu Webhook cleared",
+    "help": {
+      "step1": "① In Feishu group chat → Settings → Group Bots → Add \"Custom Bot\"",
+      "step2": "② Copy the Webhook URL and paste it into the input field above, then save",
+      "step3": "③ It is recommended to disable \"Signature Verification\" on the bot to ensure messages are delivered"
     }
   },
   "website": {

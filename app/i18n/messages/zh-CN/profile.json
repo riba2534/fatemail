@@ -75,29 +75,25 @@
     "enabled": "已启用发件权限"
   },
   "webhook": {
-    "title": "Webhook 配置",
-    "description": "当收到新邮件时通知指定的 URL",
-    "description2": "我们会向此 URL 发送 POST 请求,包含新邮件的相关信息",
-    "description3": "查看数据格式说明",
-    "enable": "启用 Webhook",
-    "url": "Webhook URL",
-    "urlPlaceholder": "输入 webhook URL",
-    "test": "测试",
-    "testing": "测试中...",
-    "save": "保存配置",
-    "saving": "保存中...",
-    "saveSuccess": "配置保存成功",
-    "saveFailed": "保存配置失败",
-    "testSuccess": "Webhook 测试成功",
-    "testFailed": "Webhook 测试失败",
-    "feishuDetected": "🐦 检测到飞书群机器人",
-    "feishuHint": "我们会自动转换为飞书卡片消息格式。请在飞书机器人后台关闭\"签名校验\"。",
-    "docs": {
-      "intro": "当收到新邮件时，我们会向配置的 URL 发送 POST 请求，请求头包含:",
-      "exampleBody": "请求体示例:",
-      "subject": "邮件主题",
-      "content": "邮件文本内容",
-      "html": "邮件HTML内容"
+    "title": "飞书 Webhook",
+    "description": "收到新邮件时，自动发送飞书卡片通知到群聊",
+    "url": "飞书机器人 Webhook 地址",
+    "urlPlaceholder": "https://open.larkoffice.com/open-apis/bot/v2/hook/...",
+    "urlHint": "粘贴飞书群自定义机器人的 Webhook 地址",
+    "save": "保存",
+    "saveSuccess": "飞书 Webhook 已保存",
+    "saveFailed": "保存失败",
+    "test": "发送测试",
+    "testTip": "向飞书群发送一条测试卡片",
+    "testSuccess": "测试消息已发送，请查看飞书群",
+    "testFailed": "发送失败，请检查机器人配置",
+    "active": "✓ 已启用 · 新邮件将自动通知到飞书群",
+    "clear": "清除",
+    "clearSuccess": "已清除飞书 Webhook",
+    "help": {
+      "step1": "① 在飞书群聊 → 设置 → 群机器人 → 添加「自定义机器人」",
+      "step2": "② 复制 Webhook 地址，粘贴到上方输入框并保存",
+      "step3": "③ 建议关闭机器人的「签名校验」以确保消息正常送达"
     }
   },
   "website": {

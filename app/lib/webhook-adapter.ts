@@ -1,27 +1,20 @@
-import { WEBHOOK_CONFIG } from "@/config"
 import type { EmailMessage } from "@/lib/webhook"
 
-export type WebhookType = "standard" | "feishu"
+export type WebhookType = "feishu"
 
 const FEISHU_HOSTS = new Set(["open.larkoffice.com", "open.feishu.cn"])
 const FEISHU_PATH_PREFIX = "/open-apis/bot/v2/hook/"
 
-export function detectWebhookType(url: string): WebhookType {
+export function isValidFeishuUrl(url: string): boolean {
   try {
     const u = new URL(url)
-    if (FEISHU_HOSTS.has(u.hostname) && u.pathname.startsWith(FEISHU_PATH_PREFIX)) {
-      return "feishu"
-    }
-  } catch {}
-  return "standard"
+    return FEISHU_HOSTS.has(u.hostname) && u.pathname.startsWith(FEISHU_PATH_PREFIX)
+  } catch {
+    return false
+  }
 }
 
-interface BuiltPayload {
-  headers: Record<string, string>
-  body: string
-}
-
-const FEISHU_CONTENT_MAX = 200
+const CONTENT_MAX = 300
 
 function truncate(text: string, max: number): string {
   if (!text) return ""
@@ -29,17 +22,31 @@ function truncate(text: string, max: number): string {
   return cleaned.length > max ? cleaned.slice(0, max) + "…" : cleaned
 }
 
-function buildFeishuCard(data: EmailMessage): string {
-  const preview = truncate(data.content, FEISHU_CONTENT_MAX) || "(无正文)"
-  const receivedAt = data.receivedAt || new Date().toISOString()
+function formatTime(isoString: string): string {
+  try {
+    const d = new Date(isoString)
+    const pad = (n: number) => String(n).padStart(2, "0")
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`
+  } catch {
+    return isoString
+  }
+}
+
+export function buildFeishuPayload(data: EmailMessage): {
+  headers: Record<string, string>
+  body: string
+} {
+  const preview = truncate(data.content, CONTENT_MAX) || "(无正文内容)"
+  const time = formatTime(data.receivedAt)
+  const subject = data.subject || "(无主题)"
 
   const card = {
     msg_type: "interactive",
     card: {
       config: { wide_screen_mode: true },
       header: {
-        title: { tag: "plain_text", content: "📧 fate.email 新邮件" },
-        template: "blue",
+        title: { tag: "plain_text", content: `📮 ${subject}` },
+        template: "indigo",
       },
       elements: [
         {
@@ -47,46 +54,44 @@ function buildFeishuCard(data: EmailMessage): string {
           fields: [
             {
               is_short: true,
-              text: { tag: "lark_md", content: `**发件人**\n${data.fromAddress || "-"}` },
+              text: {
+                tag: "lark_md",
+                content: `**✉️ 发件人**\n${data.fromAddress || "未知"}`,
+              },
             },
             {
               is_short: true,
-              text: { tag: "lark_md", content: `**收件人**\n${data.toAddress || "-"}` },
+              text: {
+                tag: "lark_md",
+                content: `**📬 收件人**\n${data.toAddress || "未知"}`,
+              },
             },
           ],
         },
+        { tag: "hr" },
         {
           tag: "div",
-          text: { tag: "lark_md", content: `**主题**：${data.subject || "(无主题)"}` },
+          text: {
+            tag: "lark_md",
+            content: preview,
+          },
         },
         { tag: "hr" },
-        { tag: "div", text: { tag: "lark_md", content: preview } },
         {
           tag: "note",
-          elements: [{ tag: "plain_text", content: receivedAt }],
+          elements: [
+            {
+              tag: "plain_text",
+              content: `⏱ ${time}  ·  fate.email`,
+            },
+          ],
         },
       ],
     },
   }
 
-  return JSON.stringify(card)
-}
-
-export function buildWebhookPayload(
-  type: WebhookType,
-  data: EmailMessage,
-): BuiltPayload {
-  if (type === "feishu") {
-    return {
-      headers: { "Content-Type": "application/json" },
-      body: buildFeishuCard(data),
-    }
-  }
   return {
-    headers: {
-      "Content-Type": "application/json",
-      "X-Webhook-Event": WEBHOOK_CONFIG.EVENTS.NEW_MESSAGE,
-    },
-    body: JSON.stringify(data),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(card),
   }
 }

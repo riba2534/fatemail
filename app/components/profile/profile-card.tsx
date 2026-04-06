@@ -5,7 +5,7 @@ import { useTranslations, useLocale } from "next-intl"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { signOut } from "next-auth/react"
-import { Github, Settings, Crown, Sword, User2, Gem, Mail } from "lucide-react"
+import { Github, MessageSquare, Crown, Sword, User2, Gem, Mail } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { WebhookConfig } from "./webhook-config"
 import { PromotePanel } from "./promote-panel"
@@ -140,7 +140,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
       {canManageWebhook && (
         <div className="bg-background rounded-lg border-2 border-primary/20 p-6">
           <div className="flex items-center gap-2 mb-6">
-            <Settings className="w-5 h-5 text-primary" />
+            <MessageSquare className="w-5 h-5 text-primary" />
             <h2 className="text-lg font-semibold">{tWebhook("title")}</h2>
           </div>
           <WebhookConfig />
