@@ -14,7 +14,7 @@ import { Providers } from "../providers"
 export const runtime = "edge"
 
 export const viewport: Viewport = {
-  themeColor: '#826DD9',
+  themeColor: '#4338CA',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,

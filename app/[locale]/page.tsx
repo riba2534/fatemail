@@ -29,7 +29,7 @@ export default async function Home({
             <div className="w-full max-w-3xl mx-auto space-y-6 sm:space-y-8 py-4">
               <div className="space-y-2 sm:space-y-3">
                 <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-wider">
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600">
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-amber-500">
                     {t("title")}
                   </span>
                 </h1>

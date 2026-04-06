@@ -77,7 +77,7 @@ export function BrandHeader({
               </svg>
             </div>
           </div>
-          <span className="text-3xl font-bold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600">
+          <span className="text-3xl font-bold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-amber-500">
             FateMail
           </span>
         </Link>
