@@ -22,5 +22,6 @@
   "actions": {
     "enterMailbox": "进入邮箱",
     "getStarted": "开始你的缘分"
-  }
+  },
+  "contact": "站长联系方式："
 }

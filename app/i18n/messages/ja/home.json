@@ -22,5 +22,6 @@
   "actions": {
     "enterMailbox": "メールボックスに入る",
     "getStarted": "運命と出会う"
-  }
+  },
+  "contact": "管理者連絡先："
 }

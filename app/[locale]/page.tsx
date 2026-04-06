@@ -1,6 +1,6 @@
 import { Header } from "@/components/layout/header"
 import { auth } from "@/lib/auth"
-import { Shield, Share2, Clock, Code2 } from "lucide-react"
+import { Shield, Share2, Clock, Code2, Mail } from "lucide-react"
 import { ActionButton } from "@/components/home/action-button"
 import { FeatureCard } from "@/components/home/feature-card"
 import { getTranslations } from "next-intl/server"
@@ -63,6 +63,12 @@ export default async function Home({
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-2 sm:px-0">
                 <ActionButton isLoggedIn={!!session} />
+              </div>
+
+              <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground pt-2">
+                <Mail className="w-3 h-3" />
+                <span>{t("contact")}</span>
+                <a href="mailto:riba2534@qq.com" className="text-primary hover:underline">riba2534@qq.com</a>
               </div>
             </div>
           </div>

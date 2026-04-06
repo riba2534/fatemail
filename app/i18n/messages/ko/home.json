@@ -22,5 +22,6 @@
   "actions": {
     "enterMailbox": "메일함 입장",
     "getStarted": "운명을 만나다"
-  }
+  },
+  "contact": "관리자 연락처:"
 }

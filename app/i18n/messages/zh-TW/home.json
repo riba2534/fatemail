@@ -22,5 +22,6 @@
   "actions": {
     "enterMailbox": "進入郵箱",
     "getStarted": "開始你的緣分"
-  }
+  },
+  "contact": "站長聯繫方式："
 }

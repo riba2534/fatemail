@@ -22,5 +22,6 @@
   "actions": {
     "enterMailbox": "Enter Mailbox",
     "getStarted": "Meet Your Fate"
-  }
+  },
+  "contact": "Contact:"
 }
