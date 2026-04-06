@@ -54,3 +54,4 @@ wrangler.email.json
 
 # 本地维护脚本（含 CF token，不推 GitHub）
 update.sh
+package-lock.json
