@@ -149,7 +149,10 @@
     "fetchFailed": "取得使用者清單失敗",
     "total": "共 {count} 人",
     "search": {
-      "placeholder": "按使用者名稱或郵箱搜尋"
+      "placeholder": "按使用者名稱或郵箱搜尋",
+      "modeUser": "搜尋使用者",
+      "modeEmail": "搜尋郵箱歸屬",
+      "emailPlaceholder": "輸入郵箱地址搜尋"
     },
     "filter": {
       "allRoles": "全部角色"
@@ -200,6 +203,24 @@
     },
     "pwResetSuccess": "密碼重設成功",
     "pwResetFailed": "密碼重設失敗",
-    "pwResetOAuthOnly": "OAuth 使用者無法重設密碼"
+    "pwResetOAuthOnly": "OAuth 使用者無法重設密碼",
+    "emailDialog": {
+      "title": "{user} 的郵箱",
+      "address": "郵箱地址",
+      "createdAt": "建立時間",
+      "expiresAt": "過期時間",
+      "status": "狀態",
+      "active": "有效",
+      "expired": "已過期",
+      "empty": "暫無郵箱",
+      "loading": "載入郵箱中...",
+      "total": "共 {count} 個郵箱",
+      "close": "關閉"
+    },
+    "emailSearch": {
+      "owner": "所屬使用者",
+      "noResults": "未找到匹配的郵箱",
+      "fetchFailed": "搜尋郵箱失敗"
+    }
   }
 }

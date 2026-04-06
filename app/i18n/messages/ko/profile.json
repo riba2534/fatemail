@@ -149,7 +149,10 @@
     "fetchFailed": "사용자 목록 조회에 실패했습니다",
     "total": "총 {count}명",
     "search": {
-      "placeholder": "사용자 이름 또는 이메일로 검색"
+      "placeholder": "사용자 이름 또는 이메일로 검색",
+      "modeUser": "사용자 검색",
+      "modeEmail": "이메일 소유자 검색",
+      "emailPlaceholder": "이메일 주소를 입력하여 검색"
     },
     "filter": {
       "allRoles": "모든 역할"
@@ -200,6 +203,24 @@
     },
     "pwResetSuccess": "비밀번호가 재설정되었습니다",
     "pwResetFailed": "비밀번호 재설정에 실패했습니다",
-    "pwResetOAuthOnly": "OAuth 사용자의 비밀번호는 재설정할 수 없습니다"
+    "pwResetOAuthOnly": "OAuth 사용자의 비밀번호는 재설정할 수 없습니다",
+    "emailDialog": {
+      "title": "{user}의 이메일",
+      "address": "이메일 주소",
+      "createdAt": "생성일",
+      "expiresAt": "만료일",
+      "status": "상태",
+      "active": "활성",
+      "expired": "만료됨",
+      "empty": "이메일이 없습니다",
+      "loading": "이메일 로딩 중...",
+      "total": "총 {count}개 이메일",
+      "close": "닫기"
+    },
+    "emailSearch": {
+      "owner": "소유자",
+      "noResults": "일치하는 이메일을 찾을 수 없습니다",
+      "fetchFailed": "이메일 검색에 실패했습니다"
+    }
   }
 }

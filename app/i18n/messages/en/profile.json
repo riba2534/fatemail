@@ -149,7 +149,10 @@
     "fetchFailed": "Failed to fetch user list",
     "total": "{count} total",
     "search": {
-      "placeholder": "Search by username or email"
+      "placeholder": "Search by username or email",
+      "modeUser": "Search Users",
+      "modeEmail": "Search Email Owner",
+      "emailPlaceholder": "Enter email address to search"
     },
     "filter": {
       "allRoles": "All Roles"
@@ -200,6 +203,24 @@
     },
     "pwResetSuccess": "Password reset successfully",
     "pwResetFailed": "Failed to reset password",
-    "pwResetOAuthOnly": "Cannot reset password for OAuth users"
+    "pwResetOAuthOnly": "Cannot reset password for OAuth users",
+    "emailDialog": {
+      "title": "{user}'s Emails",
+      "address": "Email Address",
+      "createdAt": "Created",
+      "expiresAt": "Expires",
+      "status": "Status",
+      "active": "Active",
+      "expired": "Expired",
+      "empty": "No emails created",
+      "loading": "Loading emails...",
+      "total": "{count} emails",
+      "close": "Close"
+    },
+    "emailSearch": {
+      "owner": "Owner",
+      "noResults": "No matching emails found",
+      "fetchFailed": "Failed to search emails"
+    }
   }
 }

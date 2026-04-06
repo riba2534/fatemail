@@ -43,10 +43,13 @@ import {
   KeyRound,
   Copy,
   Github,
+  Mail,
 } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 import { useCopy } from "@/hooks/use-copy"
 import { ROLES, Role } from "@/lib/permissions"
+import { AdminUserEmailsDialog } from "./admin-user-emails-dialog"
+import { AdminEmailSearchResults } from "./admin-email-search-results"
 
 type AdminUser = {
   id: string
@@ -84,6 +87,9 @@ export function AdminUserListPanel() {
   const [searchInput, setSearchInput] = useState("")
   const [roleFilter, setRoleFilter] = useState<string>("all")
   const [loading, setLoading] = useState(false)
+  const [searchMode, setSearchMode] = useState<"user" | "email">("user")
+  const [emailSearchQuery, setEmailSearchQuery] = useState("")
+  const [emailDialogUser, setEmailDialogUser] = useState<AdminUser | null>(null)
 
   const [roleDialogUser, setRoleDialogUser] = useState<AdminUser | null>(null)
   const [newRole, setNewRole] = useState<RoleWithoutEmperor>(ROLES.KNIGHT)
@@ -264,36 +270,82 @@ export function AdminUserListPanel() {
       <p className="text-sm text-muted-foreground mb-4">{t("description")}</p>
 
       <div className="flex flex-col sm:flex-row gap-2 mb-4">
-        <Input
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-          placeholder={t("search.placeholder")}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") handleSearch()
-          }}
-          className="flex-1"
-        />
         <Select
-          value={roleFilter}
-          onValueChange={(v) => {
-            setRoleFilter(v)
+          value={searchMode}
+          onValueChange={(v: "user" | "email") => {
+            setSearchMode(v)
+            setSearchInput("")
+            setSearch("")
+            setEmailSearchQuery("")
             setPage(1)
           }}
         >
-          <SelectTrigger className="w-full sm:w-40">
+          <SelectTrigger className="w-full sm:w-44">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">{t("filter.allRoles")}</SelectItem>
-            <SelectItem value={ROLES.EMPEROR}>{roleNames.emperor}</SelectItem>
-            <SelectItem value={ROLES.DUKE}>{roleNames.duke}</SelectItem>
-            <SelectItem value={ROLES.KNIGHT}>{roleNames.knight}</SelectItem>
-            <SelectItem value={ROLES.CIVILIAN}>
-              {roleNames.civilian}
+            <SelectItem value="user">
+              <div className="flex items-center gap-1.5">
+                <Users className="w-3.5 h-3.5" />
+                {t("search.modeUser")}
+              </div>
+            </SelectItem>
+            <SelectItem value="email">
+              <div className="flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5" />
+                {t("search.modeEmail")}
+              </div>
             </SelectItem>
           </SelectContent>
         </Select>
-        <Button variant="outline" onClick={handleSearch} disabled={loading}>
+        <Input
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          placeholder={searchMode === "user" ? t("search.placeholder") : t("search.emailPlaceholder")}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              if (searchMode === "user") {
+                handleSearch()
+              } else {
+                setEmailSearchQuery(searchInput.trim())
+              }
+            }
+          }}
+          className="flex-1"
+        />
+        {searchMode === "user" && (
+          <Select
+            value={roleFilter}
+            onValueChange={(v) => {
+              setRoleFilter(v)
+              setPage(1)
+            }}
+          >
+            <SelectTrigger className="w-full sm:w-40">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">{t("filter.allRoles")}</SelectItem>
+              <SelectItem value={ROLES.EMPEROR}>{roleNames.emperor}</SelectItem>
+              <SelectItem value={ROLES.DUKE}>{roleNames.duke}</SelectItem>
+              <SelectItem value={ROLES.KNIGHT}>{roleNames.knight}</SelectItem>
+              <SelectItem value={ROLES.CIVILIAN}>
+                {roleNames.civilian}
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        )}
+        <Button
+          variant="outline"
+          onClick={() => {
+            if (searchMode === "user") {
+              handleSearch()
+            } else {
+              setEmailSearchQuery(searchInput.trim())
+            }
+          }}
+          disabled={loading}
+        >
           {loading ? (
             <Loader2 className="w-4 h-4 animate-spin" />
           ) : (
@@ -302,6 +354,13 @@ export function AdminUserListPanel() {
         </Button>
       </div>
 
+      {searchMode === "email" ? (
+        <AdminEmailSearchResults
+          searchQuery={emailSearchQuery}
+          onViewUserEmails={(user) => setEmailDialogUser(user as AdminUser)}
+        />
+      ) : (
+      <>
       <div className="border rounded-lg overflow-x-auto">
         <table className="w-full text-sm">
           <thead className="bg-muted/50">
@@ -350,9 +409,12 @@ export function AdminUserListPanel() {
                 return (
                   <tr key={u.id} className="border-t">
                     <td className="px-3 py-2">
-                      <div className="font-medium truncate max-w-[160px]">
+                      <button
+                        className="font-medium truncate max-w-[160px] text-primary hover:underline underline-offset-2 text-left"
+                        onClick={() => setEmailDialogUser(u)}
+                      >
                         {u.username || u.name || "-"}
-                      </div>
+                      </button>
                     </td>
                     <td className="px-3 py-2 hidden md:table-cell">
                       <div className="truncate max-w-[200px] text-muted-foreground">
@@ -439,6 +501,14 @@ export function AdminUserListPanel() {
           </Button>
         </div>
       </div>
+      </>
+      )}
+
+      {/* 用户邮箱 Dialog */}
+      <AdminUserEmailsDialog
+        user={emailDialogUser}
+        onClose={() => setEmailDialogUser(null)}
+      />
 
       {/* 改角色 Dialog */}
       <Dialog

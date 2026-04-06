@@ -149,7 +149,10 @@
     "fetchFailed": "获取用户列表失败",
     "total": "共 {count} 人",
     "search": {
-      "placeholder": "按用户名或邮箱搜索"
+      "placeholder": "按用户名或邮箱搜索",
+      "modeUser": "搜索用户",
+      "modeEmail": "搜索邮箱归属",
+      "emailPlaceholder": "输入邮箱地址搜索"
     },
     "filter": {
       "allRoles": "全部角色"
@@ -200,6 +203,24 @@
     },
     "pwResetSuccess": "密码重置成功",
     "pwResetFailed": "密码重置失败",
-    "pwResetOAuthOnly": "OAuth 用户无法重置密码"
+    "pwResetOAuthOnly": "OAuth 用户无法重置密码",
+    "emailDialog": {
+      "title": "{user} 的邮箱",
+      "address": "邮箱地址",
+      "createdAt": "创建时间",
+      "expiresAt": "过期时间",
+      "status": "状态",
+      "active": "有效",
+      "expired": "已过期",
+      "empty": "暂无邮箱",
+      "loading": "加载邮箱中...",
+      "total": "共 {count} 个邮箱",
+      "close": "关闭"
+    },
+    "emailSearch": {
+      "owner": "所属用户",
+      "noResults": "未找到匹配的邮箱",
+      "fetchFailed": "搜索邮箱失败"
+    }
   }
 }
