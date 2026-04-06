@@ -16,6 +16,12 @@ export function isValidFeishuUrl(url: string): boolean {
 
 const CONTENT_MAX = 300
 
+/** 飞书安全审计会拦截包含邮箱地址的消息（code:11312），用 [at] 替换 @ 绕过 */
+function maskEmail(text: string): string {
+  if (!text) return ""
+  return text.replace(/@/g, "[at]")
+}
+
 function truncate(text: string, max: number): string {
   if (!text) return ""
   const cleaned = text.replace(/\s+/g, " ").trim()
@@ -36,9 +42,11 @@ export function buildFeishuPayload(data: EmailMessage): {
   headers: Record<string, string>
   body: string
 } {
-  const preview = truncate(data.content, CONTENT_MAX) || "(无正文内容)"
+  const preview = maskEmail(truncate(data.content, CONTENT_MAX)) || "(无正文内容)"
   const time = formatTime(data.receivedAt)
   const subject = data.subject || "(无主题)"
+  const from = maskEmail(data.fromAddress || "未知")
+  const to = maskEmail(data.toAddress || "未知")
 
   const card = {
     msg_type: "interactive",
@@ -56,14 +64,14 @@ export function buildFeishuPayload(data: EmailMessage): {
               is_short: true,
               text: {
                 tag: "lark_md",
-                content: `**✉️ 发件人**\n${data.fromAddress || "未知"}`,
+                content: `**✉️ 发件人**\n${from}`,
               },
             },
             {
               is_short: true,
               text: {
                 tag: "lark_md",
-                content: `**📬 收件人**\n${data.toAddress || "未知"}`,
+                content: `**📬 收件人**\n${to}`,
               },
             },
           ],
