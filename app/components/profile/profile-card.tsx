@@ -73,7 +73,8 @@ export function ProfileCard({ user }: ProfileCardProps) {
   const canManageUsers = checkPermission(PERMISSIONS.MANAGE_USERS)
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="space-y-6">
+      <div className="max-w-2xl mx-auto">
       <div className="bg-background rounded-lg border-2 border-primary/20 p-6">
         <div className="flex items-center gap-6">
           <div className="relative">
@@ -136,8 +137,10 @@ export function ProfileCard({ user }: ProfileCardProps) {
           </div>
         </div>
       </div>
+      </div>
 
       {canManageWebhook && (
+      <div className="max-w-2xl mx-auto">
         <div className="bg-background rounded-lg border-2 border-primary/20 p-6">
           <div className="flex items-center gap-2 mb-6">
             <MessageSquare className="w-5 h-5 text-primary" />
@@ -145,14 +148,16 @@ export function ProfileCard({ user }: ProfileCardProps) {
           </div>
           <WebhookConfig />
         </div>
+      </div>
       )}
 
-      {canManageConfig && <WebsiteConfigPanel />}
-      {canManageConfig && <EmailServiceConfig />}
+      {canManageConfig && <div className="max-w-2xl mx-auto"><WebsiteConfigPanel /></div>}
+      {canManageConfig && <div className="max-w-2xl mx-auto"><EmailServiceConfig /></div>}
       {canManageUsers && <AdminUserListPanel />}
-      {canPromote && <PromotePanel />}
+      {canPromote && <div className="max-w-2xl mx-auto"><PromotePanel /></div>}
       {canManageWebhook && <ApiKeyPanel />}
 
+      <div className="max-w-2xl mx-auto">
       <div className="flex flex-col sm:flex-row gap-4 px-1">
         <Button
           onClick={() => router.push(`/${locale}/moe`)}
@@ -168,6 +173,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
         >
           {tAuth("logout")}
         </Button>
+      </div>
       </div>
     </div>
   )
