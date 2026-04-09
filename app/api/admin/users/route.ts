@@ -2,7 +2,7 @@ import { createDb } from "@/lib/db"
 import { users, accounts, emails } from "@/lib/schema"
 import { checkPermission } from "@/lib/auth"
 import { PERMISSIONS } from "@/lib/permissions"
-import { like, or, sql, desc, inArray, eq } from "drizzle-orm"
+import { like, or, sql, desc, inArray } from "drizzle-orm"
 
 export const runtime = "edge"
 
