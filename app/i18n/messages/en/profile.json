@@ -163,6 +163,7 @@
       "role": "Role",
       "createdAt": "Registered",
       "providers": "Providers",
+      "emailCount": "Emails",
       "actions": "Actions"
     },
     "provider": {

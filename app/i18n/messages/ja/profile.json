@@ -163,6 +163,7 @@
       "role": "ロール",
       "createdAt": "登録日",
       "providers": "ログイン方法",
+      "emailCount": "メール数",
       "actions": "操作"
     },
     "provider": {

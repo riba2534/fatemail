@@ -163,6 +163,7 @@
       "role": "역할",
       "createdAt": "등록일",
       "providers": "로그인 방식",
+      "emailCount": "이메일 수",
       "actions": "작업"
     },
     "provider": {

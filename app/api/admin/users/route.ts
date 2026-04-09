@@ -1,8 +1,8 @@
 import { createDb } from "@/lib/db"
-import { users, accounts } from "@/lib/schema"
+import { users, accounts, emails } from "@/lib/schema"
 import { checkPermission } from "@/lib/auth"
 import { PERMISSIONS } from "@/lib/permissions"
-import { like, or, sql, desc, inArray } from "drizzle-orm"
+import { like, or, sql, desc, inArray, eq } from "drizzle-orm"
 
 export const runtime = "edge"
 
@@ -63,6 +63,18 @@ export async function GET(request: Request) {
       providersByUser.set(row.userId, arr)
     }
 
+    const emailCountRows = userIds.length
+      ? await db.select({
+          userId: emails.userId,
+          count: sql<number>`count(*)`,
+        }).from(emails).where(inArray(emails.userId, userIds)).groupBy(emails.userId)
+      : []
+
+    const emailCountByUser = new Map<string, number>()
+    for (const row of emailCountRows) {
+      if (row.userId) emailCountByUser.set(row.userId, Number(row.count))
+    }
+
     let items = rows.map(u => {
       const providers = providersByUser.get(u.id) ?? []
       if (u.password) providers.push("credentials")
@@ -74,6 +86,7 @@ export async function GET(request: Request) {
         role: u.userRoles[0]?.role.name ?? null,
         createdAt: u.createdAt?.getTime() ?? null,
         providers,
+        emailCount: emailCountByUser.get(u.id) ?? 0,
       }
     })
 

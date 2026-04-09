@@ -163,6 +163,7 @@
       "role": "角色",
       "createdAt": "注册时间",
       "providers": "登录方式",
+      "emailCount": "邮箱数",
       "actions": "操作"
     },
     "provider": {

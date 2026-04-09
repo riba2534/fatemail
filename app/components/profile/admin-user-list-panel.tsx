@@ -59,6 +59,7 @@ type AdminUser = {
   role: string | null
   createdAt: number | null
   providers: string[]
+  emailCount: number
 }
 
 type RoleWithoutEmperor = Exclude<Role, typeof ROLES.EMPEROR>
@@ -380,6 +381,9 @@ export function AdminUserListPanel() {
               <th className="text-left px-3 py-2 font-medium hidden md:table-cell">
                 {t("column.providers")}
               </th>
+              <th className="text-left px-3 py-2 font-medium hidden sm:table-cell">
+                {t("column.emailCount")}
+              </th>
               <th className="text-right px-3 py-2 font-medium">
                 {t("column.actions")}
               </th>
@@ -388,13 +392,13 @@ export function AdminUserListPanel() {
           <tbody>
             {loading && items.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-3 py-6 text-center text-muted-foreground">
+                <td colSpan={7} className="px-3 py-6 text-center text-muted-foreground">
                   {t("loading")}
                 </td>
               </tr>
             ) : items.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-3 py-6 text-center text-muted-foreground">
+                <td colSpan={7} className="px-3 py-6 text-center text-muted-foreground">
                   {t("empty")}
                 </td>
               </tr>
@@ -434,6 +438,9 @@ export function AdminUserListPanel() {
                       <div className="flex gap-1 items-center">
                         {u.providers.map(renderProvider)}
                       </div>
+                    </td>
+                    <td className="px-3 py-2 hidden sm:table-cell text-muted-foreground text-xs">
+                      {u.emailCount}
                     </td>
                     <td className="px-3 py-2 text-right">
                       <div className="flex gap-1 justify-end">
