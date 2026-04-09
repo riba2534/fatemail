@@ -129,6 +129,18 @@ These contain real Cloudflare resource IDs and secrets. Copy from examples when 
 
 `.github/workflows/deploy.yml` triggers on push to `master`/`main`. Runs `scripts/deploy/index.ts` which orchestrates the full deployment pipeline (D1 create/migrate → KV create → Pages create/deploy → Workers deploy). Requires 13 GitHub Secrets.
 
+### Pre-push Checklist
+
+**推送前必须验证构建通过**。项目启用了 ESLint 严格检查（未使用的导入/变量会导致构建失败），CI 通过 `pnpm run build:pages` 构建。
+
+推送前至少执行以下检查之一：
+- `npx next lint` — 快速 ESLint 检查
+- `pnpm run build:pages` — 完整构建验证（与 CI 一致）
+
+常见导致 CI 失败的问题：
+- 导入了未使用的模块/变量（`@typescript-eslint/no-unused-vars`）
+- 缺少 React Hook 依赖（`react-hooks/exhaustive-deps`，warning 不阻断但应注意）
+
 ### CLI Tool
 
 `packages/cli/` — `@fatemail/cli` npm package. Agent-first design for AI automation workflows. Binary name: `fatemail`. Config dir: `~/.fatemail/`. Env vars: `FATEMAIL_API_URL`, `FATEMAIL_API_KEY`.
